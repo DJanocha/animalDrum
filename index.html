@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play Animals</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="empty"></div>
+    <div class="keyboard">
+      <div class="key" data-key="65">
+        <kbd>a</kbd>
+        <div><span class="animal">bee</span></div>
+      </div>
+      <div class="key" data-key="83">
+        <kbd>s</kbd>
+        <div><span class="animal">bird</span></div>
+      </div>
+      <div class="key" data-key="68">
+        <kbd>d</kbd>
+        <div><span class="animal">cat</span></div>
+      </div>
+      <div class="key" data-key="70">
+        <kbd>f</kbd>
+        <div><span class="animal">chicken</span></div>
+      </div>
+      <div class="key" data-key="71">
+        <kbd>g</kbd>
+        <div><span class="animal">dog</span></div>
+      </div>
+      <div class="key" data-key="72">
+        <kbd>h</kbd>
+        <div><span class="animal">donkey</span></div>
+      </div>
+      <div class="key" data-key="74">
+        <kbd>j</kbd>
+        <div><span class="animal">elephant</span></div>
+      </div>
+      <div class="key" data-key="75">
+        <kbd>k</kbd>
+        <div><span class="animal">frog</span></div>
+      </div>
+      <div class="key" data-key="76">
+        <kbd>l</kbd>
+        <div><span class="animal">whistingBird</span></div>
+      </div>
+      <div class="key" data-key="186">
+        <kbd>;</kbd>
+        <div><span class="animal">monkey</span></div>
+      </div>
+    </div>
+    <div class="empty"></div>
+
+    <audio data-key="65" src="sounds/bee.wav"></audio>
+    <audio data-key="83" src="sounds/bird.wav"></audio>
+    <audio data-key="68" src="sounds/cat.wav"></audio>
+    <audio data-key="70" src="sounds/chicken.wav"></audio>
+    <audio data-key="71" src="sounds/dog.wav"></audio>
+    <audio data-key="72" src="sounds/donkey.wav"></audio>
+    <audio data-key="74" src="sounds/elephant.wav"></audio>
+    <audio data-key="75" src="sounds/frog.wav"></audio>
+    <audio data-key="76" src="sounds/whistingBird.wav"></audio>
+    <audio data-key="186" src="sounds/monkey.wav"></audio>
+
+    <script>
+      const playMusic = (e) => {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+        const myDiv = document.querySelector(`.key[data-key="${e.keyCode}"`)
+        if (!audio) return
+        audio.currentTime = 0
+        audio.play()
+        myDiv.classList.add("keyPressed")
+      }
+
+      const stopPlaying = (e) => {
+        if (e.propertyName !== "transform") return
+        e.target.classList.remove("keyPressed")
+        // this.classList.remove("keyPressed")
+      }
+
+      const keys = Array.from(document.querySelectorAll(".key"))
+      keys.forEach((key) => {
+        key.addEventListener("transitionend", stopPlaying)
+      })
+      window.addEventListener("keydown", playMusic)
+
+      // const keys = document.querySelectorAll(".key").addEventListener("transitionend", (e) => {
+      //   console.log(e)
+      // })
+    </script>
+  </body>
+</html>
